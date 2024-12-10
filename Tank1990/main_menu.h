@@ -71,14 +71,15 @@ namespace Tank1990 {
 			// 
 			// main_menu
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
-			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
-			this->ClientSize = System::Drawing::Size(1904, 1161);
+			this->ClientSize = System::Drawing::Size(1900, 971);
 			this->Controls->Add(this->pictureBox1);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MaximizeBox = false;
+			this->MinimumSize = System::Drawing::Size(1918, 1018);
 			this->Name = L"main_menu";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"TANK1990";
 			this->Load += gcnew System::EventHandler(this, &main_menu::main_menu_Load);
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &main_menu::main_menu_KeyDown);
