@@ -1,4 +1,5 @@
 #include "main_menu.h"
+#include "game.h"
 
 #include <Windows.h>
 
@@ -6,7 +7,8 @@ using namespace Tank1990; // пространство имен названия проекта
 
 void main_menu::Decide() {
     if (pictureBox1->Location.Y == 435) {
-        MessageBox::Show("1");
+        game^ GameForm = gcnew game;
+        GameForm->Show();
     }
     else if (pictureBox1->Location.Y == 540) {
         MessageBox::Show("2");

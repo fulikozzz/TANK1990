@@ -118,14 +118,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="main_menu.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="game.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="main_menu.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="game.resx">
+      <DependentUpon>game.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="main_menu.resx">
       <DependentUpon>main_menu.h</DependentUpon>
     </EmbeddedResource>
