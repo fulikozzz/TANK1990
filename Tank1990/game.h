@@ -1,4 +1,6 @@
 #pragma once
+#include "Map.h"
+#include "Renderer.h"
 
 namespace Tank1990 {
 
@@ -19,6 +21,14 @@ namespace Tank1990 {
 		{
 			InitializeComponent();
 			this->DoubleBuffered = true;
+
+			map = gcnew Map(20, 20);
+			map->LoadFromFile("map.txt");
+			
+			render = gcnew Renderer(map, 54);
+
+			this->panel1->Paint += gcnew PaintEventHandler(this, &game::panel1_Paint);
+
 			//
 			//TODO: добавьте код конструктора
 			//
@@ -44,6 +54,10 @@ namespace Tank1990 {
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
+	private: 
+		Map^ map;
+		Renderer^ render;
+
 #pragma region Windows Form Designer generated code
 		/// <summary>
 		/// “ребуемый метод дл€ поддержки конструктора Ч не измен€йте 
@@ -62,6 +76,7 @@ namespace Tank1990 {
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(1080, 1080);
 			this->panel1->TabIndex = 0;
+			this->panel1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &game::panel1_Paint);
 			// 
 			// game
 			// 
@@ -72,10 +87,15 @@ namespace Tank1990 {
 			this->Controls->Add(this->panel1);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Name = L"game";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::Manual;
 			this->Text = L"TANK1990";
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
+	private: System::Void panel1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+		Graphics^ g = e->Graphics;
+		render->Draw(g);
+	}
 	};
 }
