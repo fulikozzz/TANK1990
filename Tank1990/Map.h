@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Wall.h"
+
 #include <string>
 #include <vector>
 
@@ -8,7 +10,7 @@ ref class Map
 private:
     int width;          // 20
     int height;         // 20
-    array<wchar_t, 2>^ grid;
+    array<Wall^, 2>^ grid;
 
 public:
 
@@ -17,6 +19,6 @@ public:
     void loadFromFile(System::String^ filePath);
     int getWidth();
     int getHeight();
-    char getCell(int x, int y);
+    Wall^ getCell(int x, int y);
 
 };

@@ -23,5 +23,7 @@ public:
 	void setSpeed(int value);
 
 	void move();
+
+	bool checkCollision(int currentX, int currentY, Direction currentDirection);
 };
 

@@ -4,7 +4,7 @@
 Map::Map() {
     width = 20;
     height = 20;
-    grid = gcnew array<wchar_t, 2>(height, width);
+    grid = gcnew array<Wall^, 2>(height, width);
 }
 
 void Map::loadFromFile(System::String^ filePath) {
@@ -21,7 +21,22 @@ void Map::loadFromFile(System::String^ filePath) {
             }
 
             for (int x = 0; x < width; ++x) {
-                grid[y, x] = line[x];
+                WallType type;
+                switch (line[x])
+                {
+                case '1': type = IronWall; break;
+                case '2': type = WoodenWall; break;
+                case '3': type = BrickWallHigh; break;
+                case '4': type = BrickWallHalf; break;
+                case '5': type = BrickWallLow; break;
+                case '6': type = Tree; break;
+                case '7': type = Ice; break;
+                case '8': type = Water; break;
+                case 'p': type = Player_Base; break;
+                case 'e': type = Enemy_Base; break;
+                default: type = Empty; break;
+                }
+                grid[y, x] = gcnew Wall(gcnew Position(x, y), type);
             }
         }
     }
@@ -39,7 +54,7 @@ int Map::getHeight() { return height; }
 
 int Map::getWidth() { return width; }
 
-char Map::getCell(int x, int y) {
+Wall^ Map::getCell(int x, int y) {
     if (x > width || x < 0 || y > height || y < 0) {
         throw std::out_of_range("Координаты за пределами карты.");
     }

@@ -13,21 +13,46 @@ void Tank::setLives(int value) { lives = value; }
 void Tank::setSpeed(int value) { speed = value; }
 
 void Tank::move() {
-	switch (direction)
+	if (!checkCollision(position->getX(), position->getY(), direction)) {
+		switch (direction)
+		{
+		case UP:
+			position->setY(position->getY() - speed);
+			break;
+		case RIGHT:
+			position->setX(position->getX() + speed);
+			break;
+		case DOWN:
+			position->setY(position->getY() + speed);
+			break;
+		case LEFT:
+			position->setX(position->getX() - speed);
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+bool Tank::checkCollision(int currentX, int currentY, Direction currentDirection) {
+	Position^ newPosition = gcnew Position(currentX, currentY);
+	switch (currentDirection)
 	{
 	case UP:
-		position->setY(position->getY() - speed);
+		newPosition->setY(currentY - speed);
 		break;
 	case RIGHT:
-		position->setX(position->getX() + speed);
+		newPosition->setX(currentX + speed);
 		break;
 	case DOWN:
-		position->setY(position->getY() + speed);
+		newPosition->setY(currentY + speed);
 		break;
 	case LEFT:
-		position->setX(position->getX() - speed);
-		break;
-	default:
+		newPosition->setX(currentX - speed);
 		break;
 	}
+	
+	if (newPosition->getX() < 0 || newPosition->getX() > 1080 || newPosition->getY() < 0 || newPosition->getY() > 1080)
+		return true;
+	else return false;
 }

@@ -125,6 +125,7 @@
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Tank.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Direction.h" />
@@ -140,6 +141,7 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Tank.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="game.resx">
