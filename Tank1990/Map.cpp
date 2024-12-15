@@ -1,25 +1,47 @@
 #include "Map.h"
+#include <stdexcept>
 
-Map::Map(int rows, int cols) {
-    this->rows = rows;
-    this->cols = cols;
-    grid = gcnew array<array<wchar_t>^>(rows);
-    for (int i = 0; i < rows; i++) {
-        grid[i] = gcnew array<wchar_t>(cols);
+Map::Map() {
+    width = 20;
+    height = 20;
+    grid = gcnew array<wchar_t, 2>(height, width);
+}
+
+void Map::loadFromFile(System::String^ filePath) {
+    System::IO::StreamReader^ reader = nullptr;
+
+    try {
+        reader = gcnew System::IO::StreamReader(filePath);
+
+        for (int y = 0; y < height; ++y) {
+            System::String^ line = reader->ReadLine();
+
+            if (line == nullptr || line->Length != width) {
+                throw gcnew System::Exception("Файл карты не соответствует формату!");
+            }
+
+            for (int x = 0; x < width; ++x) {
+                grid[y, x] = line[x];
+            }
+        }
+    }
+    catch (System::Exception^ e) {
+        throw gcnew System::Exception("Ошибка загрузки карты: " + e->Message);
+    }
+    finally {
+        if (reader != nullptr) {
+            reader->Close();
+        }
     }
 }
-void Map::LoadFromFile(System::String^ filePath) {
-    System::IO::StreamReader^ reader = gcnew System::IO::StreamReader(filePath);
-    for (int i = 0; i < rows; ++i) {
-        System::String^ line = reader->ReadLine();
-        grid[i] = line->ToCharArray();
+
+int Map::getHeight() { return height; }
+
+int Map::getWidth() { return width; }
+
+char Map::getCell(int x, int y) {
+    if (x > width || x < 0 || y > height || y < 0) {
+        throw std::out_of_range("Координаты за пределами карты.");
     }
-    reader->Close();
+    else return grid[x, y];
 }
-
-wchar_t Map::GetCell(int row, int col) {
-    return grid[row][col];
-}
-
-int Map::GetRows() { return rows; }
-int Map::GetCols() { return cols; }

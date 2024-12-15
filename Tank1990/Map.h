@@ -1,21 +1,22 @@
 #pragma once
+
 #include <string>
 #include <vector>
 
 ref class Map
 {
 private:
-    array<array<wchar_t>^>^ grid; 
-    int rows;
-    int cols;
+    int width;          // 20
+    int height;         // 20
+    array<wchar_t, 2>^ grid;
 
 public:
-    Map(int rows, int cols);
-    void LoadFromFile(System::String^ filePath);
 
-    wchar_t GetCell(int row, int col);
+    Map();
 
-    int GetRows();
-    int GetCols();
+    void loadFromFile(System::String^ filePath);
+    int getWidth();
+    int getHeight();
+    char getCell(int x, int y);
+
 };
-

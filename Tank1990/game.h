@@ -22,12 +22,13 @@ namespace Tank1990 {
 			InitializeComponent();
 			this->DoubleBuffered = true;
 
-			map = gcnew Map(20, 20);
-			map->LoadFromFile("map.txt");
+			map = gcnew Map();
+			map->loadFromFile("maps/map1.txt");
+			render = gcnew Renderer(map);
+			player = gcnew Player_Tank(gcnew Position(54, 54), DOWN, 0, 9);
 			
-			render = gcnew Renderer(map, 54);
-
 			this->panel1->Paint += gcnew PaintEventHandler(this, &game::panel1_Paint);
+			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &game::game_KeyDown);
 
 			//
 			//TODO: добавьте код конструктора
@@ -57,6 +58,7 @@ namespace Tank1990 {
 	private: 
 		Map^ map;
 		Renderer^ render;
+		Player_Tank^ player;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -89,13 +91,19 @@ namespace Tank1990 {
 			this->Name = L"game";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::Manual;
 			this->Text = L"TANK1990";
+			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &game::game_KeyDown);
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
 	private: System::Void panel1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 		Graphics^ g = e->Graphics;
-		render->Draw(g);
+		render->drawMap(g);
+		render->drawPlayer(g, player);
+	}
+	private: System::Void game_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+		player->control(e->KeyCode);
+		this->panel1->Invalidate();
 	}
 	};
 }

@@ -121,8 +121,10 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main_menu.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Player_Tank.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Tank.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Direction.h" />
@@ -133,9 +135,11 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Player_Tank.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Tank.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="game.resx">
